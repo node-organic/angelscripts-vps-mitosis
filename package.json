@@ -1,0 +1,31 @@
+{
+  "name": "angelscripts-vps-mitosis",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release-patch": "npm version patch",
+    "release-minor": "npm version minor",
+    "release-major": "npm version major",
+    "postversion": "npm publish && git push --tags && git push origin master"
+  },
+  "author": "Boris Filipov",
+  "license": "MIT",
+  "peerDependencies": {
+    "organic-angel": "0.3.x"
+  },
+  "dependencies": {
+    "angelabilities-exec": "^1.0.0",
+    "p-iteration": "^1.1.7",
+    "organic-stem-skeleton-find-root": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
+}
