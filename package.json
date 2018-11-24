@@ -1,6 +1,6 @@
 {
   "name": "angelscripts-vps-mitosis",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Angel scripts aiding in management of a VPS for cell(s) mitosis.",
   "main": "index.js",
   "scripts": {
