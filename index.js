@@ -25,11 +25,16 @@ module.exports = function (angel) {
     console.info(`${vpsName} vps setup done.`)
   })
   angel.on('vps :vpsName setup root cells', async (angel) => {
+    await doPromise(angel, `vps ${angel.cmdData.vpsName} setup root cell any`)
+    console.info('all root cells setups complete.')
+  })
+  angel.on('vps :vpsName setup root cell :rootServiceName', async (angel) => {
     const monorepo_root = await findSkeletonRoot()
     const loadRootDNA = require(path.join(monorepo_root, '/cells/node_modules/lib/load-root-dna'))
     let rootDNA = await loadRootDNA()
     let vps = rootDNA.vps[angel.cmdData.vpsName]
     await forEachSeries(vps.rootCells, async (rootCell) => {
+      if (rootCell.serviceName !== angel.cmdData.rootServiceName && angel.cmdData.rootServiceName !== 'any') return
       if (rootCell.templatePath) {
         console.info(`root cell mitosis ${rootCell.source} ${rootCell.templatePath}...`)
         await angel.exec(`npx ${rootCell.source} ${vps.ip} ${rootCell.templatePath}`)
@@ -37,8 +42,8 @@ module.exports = function (angel) {
         console.info(`root cell mitosis ${rootCell.source}...`)
         await angel.exec(`npx ${rootCell.source} ${vps.ip}`)
       }
+      console.info('setup complete.')
     })
-    console.info('all root cells setups complete.')
   })
   angel.on(/vps (.*) -- (.*)/, async (angel) => {
     const monorepo_root = await findSkeletonRoot()
